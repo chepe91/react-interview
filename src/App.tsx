@@ -8,18 +8,23 @@ function App() {
 
   const [phoneBookList, setPhoneBookList] = useState([]);
 
-  const addedContact = (contact) => {
+  const addContactHandler = (contact) => {
 
-    
+    let exists = phoneBookList.find((entry) => entry.phone === contact.phone)
+    if (exists) {
+      return false;
+    }
+
     setPhoneBookList((prevState) => {
-        return [...prevState, contact];
+      return [...prevState, contact];
     });
+    return true;
   }
 
   return (
     <div className="App">
-        <AddContact addedContact={addedContact}></AddContact>
-        <PhoneBook phoneBookList={phoneBookList}></PhoneBook>
+      <AddContact addContactHandler={addContactHandler}></AddContact>
+      <PhoneBook phoneBookList={phoneBookList}></PhoneBook>
     </div>
 
   );

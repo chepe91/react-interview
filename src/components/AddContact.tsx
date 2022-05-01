@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const AddContact = ({ addedContact }) => {
+export const AddContact = ({ addContactHandler }) => {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -10,7 +10,7 @@ export const AddContact = ({ addedContact }) => {
     const onChangePhoneHandler = (e) => {
         const phone = e.target.value;
         let regex = /^\d*$/;
-        if(regex.test(phone)){
+        if (regex.test(phone)) {
             setPhone(phone);
         } else {
             e.preventDefault();
@@ -20,17 +20,17 @@ export const AddContact = ({ addedContact }) => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
-        if(firstName === ""){
+        if (firstName === "") {
             setErrorMessage("first name is mandatory");
             return;
         }
-        
-        if(lastName === ""){
+
+        if (lastName === "") {
             setErrorMessage("last name is mandatory");
             return;
         }
 
-        if(phone === ""){
+        if (phone === "") {
             setErrorMessage("phone is mandatory");
             return;
         }
@@ -40,19 +40,23 @@ export const AddContact = ({ addedContact }) => {
             lastName,
             phone
         }
-        
-        console.log("added contact ")
-        addedContact(contact);
+
+        const added = addContactHandler(contact);
+        if(!added){
+            setErrorMessage("Phone already exists");
+        } else {
+            setErrorMessage("");
+        }
     }
 
     return <form onSubmit={onSubmitHandler}>
         <input
-            onChange={(e)=> {setFirstName(e.target.value)}}
+            onChange={(e) => { setFirstName(e.target.value) }}
             value={firstName}
         />
         <br />
         <input
-            onChange={(e)=> {setLastName(e.target.value)}}
+            onChange={(e) => { setLastName(e.target.value) }}
             value={lastName}
         />
         <br />
@@ -60,7 +64,7 @@ export const AddContact = ({ addedContact }) => {
             onChange={onChangePhoneHandler}
             value={phone}
         />
-        { errorMessage && <div><br/><span>{errorMessage}</span></div>}
+        {errorMessage && <div><br /><span>{errorMessage}</span></div>}
         <br />
         <button type="submit">Add</button>
     </form>

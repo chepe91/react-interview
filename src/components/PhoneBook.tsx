@@ -2,7 +2,6 @@ import React from "react";
 
 export const PhoneBook = ({ phoneBookList }) => {
 
-    console.log(phoneBookList);
     return <table>
         <thead>
             <tr>
@@ -12,15 +11,15 @@ export const PhoneBook = ({ phoneBookList }) => {
             </tr>
         </thead>
         <tbody>
-        {
-            phoneBookList.map(({firstName, lastName, phone}) => {
-                return <tr key={phone}> 
-                    <td>{firstName}</td>
-                    <td>{lastName}</td>
-                    <td>{phone}</td>
-                </tr>
-            })
-        }
+            {
+                phoneBookList.map(({ firstName, lastName, phone }) => {
+                    return <tr key={phone}>
+                        <td>{firstName}</td>
+                        <td>{lastName}</td>
+                        <td>{phone}</td>
+                    </tr>
+                })
+            }
         </tbody>
     </table>;
 }
