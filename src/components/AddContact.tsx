@@ -46,6 +46,9 @@ export const AddContact = ({ addContactHandler }) => {
             setErrorMessage("Phone already exists");
         } else {
             setErrorMessage("");
+            setFirstName("");
+            setLastName("");
+            setPhone("");
         }
     }
 
